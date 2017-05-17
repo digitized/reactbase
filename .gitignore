@@ -1,0 +1,5 @@
+# Ignore node_modules
+node_modules
+# Ignore dev and dist folder
+dev
+dist
