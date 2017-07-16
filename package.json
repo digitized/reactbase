@@ -1,7 +1,7 @@
 {
-  "name": "trumpit",
+  "name": "reactbase",
   "version": "1.0.0",
-  "description": "",
+  "description": "Base react project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
