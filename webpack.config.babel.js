@@ -17,7 +17,7 @@ const config = {
       exclude: /node_modules/,
       query: { presets: ['react', 'env'] },
     }, {
-      test: /.js?$/,
+      test: /.jsx?$/,
       loader: 'eslint-loader',
       exclude: /node_modules/,
       enforce: 'pre',
