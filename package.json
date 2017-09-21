@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "babel -w src/server -d dev/server & webpack -p -w",
-    "dev": "ENV=DEV nodemon dev/server/index.js",
-    "build": "webpack --output-path dist/public & babel src/server -d dist/server"
+    "watch": "babel -w src/server -d build/server & webpack -p -w",
+    "dev": "ENV=DEV nodemon build/server/index.js",
+    "build": "webpack --output-path public & babel src/server -d build/server"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.1",
     "node-sass": "^4.5.3",

@@ -7,8 +7,8 @@ const env = process.env.ENV != 'PROD' ? 'dev' : 'dist';
 
 app
   .use(bodyParser.json())
-  .use(express.static(`${env}/client/public`))
+  .use(express.static(`public`))
   .use(router);
 
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
