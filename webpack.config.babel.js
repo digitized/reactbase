@@ -1,4 +1,5 @@
 import path from 'path';
+import LiveReloadPlugin from 'webpack-livereload-plugin';
 
 const BUILD_DIR = path.resolve(__dirname, 'public');
 const APP_DIR = path.resolve(__dirname, 'src/client');
@@ -25,6 +26,9 @@ const config = {
       loaders: ['style-loader', 'css-loader', 'sass-loader'],
     }],
   },
+  plugins: [
+    new LiveReloadPlugin()
+  ],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
