@@ -3,11 +3,10 @@ import bodyParser from 'body-parser';
 import router from './routes';
 
 const app = express();
-const env = process.env.ENV != 'PROD' ? 'dev' : 'dist';
 
 app
   .use(bodyParser.json())
-  .use(express.static(`public`))
+  .use(express.static('public'))
   .use(router);
 
 

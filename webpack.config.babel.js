@@ -17,7 +17,7 @@ const config = {
       exclude: /node_modules/,
       query: { presets: ['react', 'env'] },
     }, {
-      test: /.jsx?$/,
+      test: /.js?$/,
       loader: 'eslint-loader',
       exclude: /node_modules/,
       enforce: 'pre',
@@ -27,7 +27,7 @@ const config = {
     }],
   },
   plugins: [
-    new LiveReloadPlugin()
+    new LiveReloadPlugin(),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],

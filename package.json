@@ -10,6 +10,7 @@
     "build": "webpack --output-path public & babel src/server -d build/server",
     "lint": "eslint src"
   },
+  "pre-commit": ["lint"],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -33,6 +34,7 @@
     "eslint-plugin-react": "^7.3.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
+    "pre-commit": "^1.2.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
     "webpack": "^2.5.1",
