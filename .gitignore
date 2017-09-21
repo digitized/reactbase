@@ -1,8 +1,9 @@
 # Ignore node_modules
 node_modules
 
-# Ignore dev and dist folder
+# Ignore build files
 build
+bundle.js
 
 # Junk Files
 .DS_Store
