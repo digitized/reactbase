@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'path';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 
 const BUILD_DIR = path.resolve(__dirname, 'public');
 const APP_DIR = path.resolve(__dirname, 'src/client');
@@ -10,11 +11,25 @@ let devtoolSetting = 'eval';
 let livePluginSetting = [];
 if (ENV === 'production') {
   devtoolSetting = 'cheap-module-source-map';
-  livePluginSetting = [new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify('production'),
-    },
-  })];
+  livePluginSetting = [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      comments: false,
+      sourceMap: false,
+    }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|html)$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+  ];
 } else {
   livePluginSetting = [new LiveReloadPlugin()];
 }
