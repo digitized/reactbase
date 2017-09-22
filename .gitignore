@@ -7,3 +7,6 @@ bundle.js
 
 # Junk Files
 .DS_Store
+
+# Overriding Docker Compose
+docker-compose.override.yml

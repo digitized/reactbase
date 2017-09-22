@@ -8,16 +8,20 @@
     "watch": "babel -w src/server -d build/server & webpack -p -w",
     "dev": "ENV=DEV nodemon build/server/index.js",
     "build": "webpack --output-path public & babel src/server -d build/server",
+    "start": "node build/server/index.js",
     "lint": "eslint src"
   },
-  "pre-commit": ["lint"],
+  "pre-commit": [
+    "lint"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "sequelize": "^4.10.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
