@@ -4,18 +4,17 @@
   "description": "Base react project",
   "main": "index.js",
   "scripts": {
-    "build:dev": "ENV=development webpack --output-path public && babel src/server -d build/server",
-    "build:prod": "ENV=production webpack --output-path public && babel src/server -d build/server",
-    "dev": "ENV=development npm run build:dev && node build/server/index.js",
+    "build:dev": "NODE_ENV=development webpack --output-path public && babel src -d build --ignore src/client",
+    "build:prod": "NODE_ENV=production webpack --output-path public && babel src -d build --ignore src/client",
     "docker:build": "docker-compose build",
     "docker:dev": "docker-compose up",
     "docker:prod": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
     "lint": "eslint src",
-    "start": "ENV=production npm run build:prod && node build/server/index.js",
+    "start": "NODE_ENV=production npm run build:prod && NODE_ENV=production node build/server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npm run watch:client & npm run watch:server",
-    "watch:client": "ENV=development webpack -p -w",
-    "watch:server": "babel -w src/server -d build/server & nodemon build/server/index.js"
+    "watch:client": "NODE_ENV=development webpack -p -w",
+    "watch:server": "babel -w src -d build --ignore src/client & nodemon build/server/index.js"
   },
   "pre-commit": [
     "lint"

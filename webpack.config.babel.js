@@ -5,7 +5,7 @@ import CompressionPlugin from 'compression-webpack-plugin';
 
 const BUILD_DIR = path.resolve(__dirname, 'public');
 const APP_DIR = path.resolve(__dirname, 'src/client');
-const ENV = process.env.ENV;
+const ENV = process.env.NODE_ENV;
 
 let devtoolSetting = 'eval';
 let livePluginSetting = [];
@@ -18,7 +18,14 @@ if (ENV === 'production') {
       },
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false },
+      mangle: true,
+      compress: {
+        warnings: false,
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+        screw_ie8: true,
+      },
       comments: false,
       sourceMap: false,
     }),
