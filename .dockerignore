@@ -1,2 +1,11 @@
+# Build files
 nodes_modules
 build
+bundle.js*
+
+# Config Files
+.gitignore
+.eslintrc.json
+docker-compose*.yml
+Dockerfile
+
