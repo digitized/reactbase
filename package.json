@@ -1,14 +1,15 @@
 {
   "name": "reactbase",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Base react project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "babel -w src/server -d build/server & webpack -p -w",
-    "dev": "ENV=DEV nodemon build/server/index.js",
+    "watch:client": "webpack -p -w",
+    "watch:server": "babel -w src/server -d build/server & nodemon build/server/index.js",
+    "watch": "npm run watch:client & npm run watch:server",
     "build": "webpack --output-path public & babel src/server -d build/server",
-    "start": "node build/server/index.js",
+    "start": "npm run build && node build/server/index.js",
     "lint": "eslint src"
   },
   "pre-commit": [
