@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch:client": "webpack -p -w",
+    "watch:client": "ENV=development webpack -p -w",
     "watch:server": "babel -w src/server -d build/server & nodemon build/server/index.js",
     "watch": "npm run watch:client & npm run watch:server",
-    "build": "webpack --output-path public & babel src/server -d build/server",
-    "start": "npm run build && node build/server/index.js",
+    "build:dev": "ENV=development webpack --output-path public && babel src/server -d build/server",
+    "build:prod": "ENV=production webpack --output-path public && babel src/server -d build/server",
+    "dev": "ENV=development npm run build:dev && node build/server/index.js",
+    "start": "ENV=production npm run build:prod && node build/server/index.js",
     "lint": "eslint src"
   },
   "pre-commit": [

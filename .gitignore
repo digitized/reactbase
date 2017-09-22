@@ -4,6 +4,7 @@ node_modules
 # Ignore build files
 build
 bundle.js
+bundle.*.map
 
 # Junk Files
 .DS_Store

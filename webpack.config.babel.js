@@ -1,10 +1,26 @@
+import webpack from 'webpack';
 import path from 'path';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 
 const BUILD_DIR = path.resolve(__dirname, 'public');
 const APP_DIR = path.resolve(__dirname, 'src/client');
+const ENV = process.env.ENV;
+
+let devtoolSetting = 'eval';
+let livePluginSetting = [];
+if (ENV === 'production') {
+  devtoolSetting = 'cheap-module-source-map';
+  livePluginSetting = [new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production'),
+    },
+  })];
+} else {
+  livePluginSetting = [new LiveReloadPlugin()];
+}
 
 const config = {
+  devtool: devtoolSetting,
   entry: `${APP_DIR}/index.jsx`,
   output: {
     path: BUILD_DIR,
@@ -26,9 +42,7 @@ const config = {
       loaders: ['style-loader', 'css-loader', 'sass-loader'],
     }],
   },
-  plugins: [
-    new LiveReloadPlugin(),
-  ],
+  plugins: livePluginSetting,
   resolve: {
     extensions: ['.js', '.jsx'],
   },
