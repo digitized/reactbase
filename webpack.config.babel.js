@@ -8,15 +8,27 @@ const APP_DIR = path.resolve(__dirname, 'src/client');
 const ENV = process.env.NODE_ENV;
 
 let devtoolSetting = 'eval';
-let livePluginSetting = [];
+
+const baseModuleSetting = {
+  loaders: [{
+    test: /.jsx?$/,
+    loader: 'babel-loader',
+    exclude: /node_modules/,
+    query: { presets: ['react', 'env'] },
+  }, {
+    test: /.scss$/,
+    loaders: ['style-loader', 'css-loader', 'sass-loader'],
+  }],
+};
+const moduleSetting = Object.assign({}, baseModuleSetting);
+
+const basePluginSetting = [];
+const pluginSetting = basePluginSetting.slice();
+
+// Modify settings based on env
 if (ENV === 'production') {
   devtoolSetting = 'cheap-module-source-map';
-  livePluginSetting = [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
+  pluginSetting.concat([
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       compress: {
@@ -36,9 +48,15 @@ if (ENV === 'production') {
       threshold: 10240,
       minRatio: 0.8,
     }),
-  ];
+  ]);
 } else {
-  livePluginSetting = [new LiveReloadPlugin()];
+  moduleSetting.loaders.push({
+    test: /.jsx?$/,
+    loader: 'eslint-loader',
+    exclude: /node_modules/,
+    enforce: 'pre',
+  });
+  pluginSetting.concat([new LiveReloadPlugin()]);
 }
 
 const config = {
@@ -48,23 +66,8 @@ const config = {
     path: BUILD_DIR,
     filename: 'bundle.js',
   },
-  module: {
-    loaders: [{
-      test: /.jsx?$/,
-      loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: { presets: ['react', 'env'] },
-    }, {
-      test: /.jsx?$/,
-      loader: 'eslint-loader',
-      exclude: /node_modules/,
-      enforce: 'pre',
-    }, {
-      test: /.scss$/,
-      loaders: ['style-loader', 'css-loader', 'sass-loader'],
-    }],
-  },
-  plugins: livePluginSetting,
+  module: moduleSetting,
+  plugins: pluginSetting,
   resolve: {
     extensions: ['.js', '.jsx'],
   },
